@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="70dp"
+    android:orientation="horizontal"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+
+    <TextView
+        android:id="@+id/time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/message_container"
+        tools:text="21:00" />
+
+    <LinearLayout
+        android:id="@+id/message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_message_background"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="250dp"
+            tools:text="sjfglasjfdshfkjhdlkdfjsgkfdhgjkfdhgjkhdfskjghkfdhgsfhgksdfhgksdfhgkdhgkdfhsgkdfhkghdsfkghdfkgsafdsasdf"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/message_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:maxWidth="250dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</RelativeLayout>
