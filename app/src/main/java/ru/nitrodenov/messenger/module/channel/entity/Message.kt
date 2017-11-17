@@ -2,8 +2,9 @@ package ru.nitrodenov.messenger.module.channel.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
-class Message(val isIncomeMessage: Boolean,
+class Message(@SerializedName("incomeMessage") val isIncomeMessage: Boolean,
               val text: String?,
               val time: String,
               val logo: String?,
@@ -24,17 +25,13 @@ class Message(val isIncomeMessage: Boolean,
         parcel.writeString(imageInMessage)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<Message> {
-        override fun createFromParcel(parcel: Parcel): Message {
-            return Message(parcel)
-        }
 
-        override fun newArray(size: Int): Array<Message?> {
-            return arrayOfNulls(size)
-        }
+        override fun createFromParcel(parcel: Parcel): Message = Message(parcel)
+
+        override fun newArray(size: Int): Array<Message?> = arrayOfNulls(size)
+
     }
 }

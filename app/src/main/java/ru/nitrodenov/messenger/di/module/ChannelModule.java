@@ -14,10 +14,10 @@ import ru.nitrodenov.messenger.http.HttpConnection;
 import ru.nitrodenov.messenger.module.channel.entity.ChannelToolbarData;
 import ru.nitrodenov.messenger.module.channel.interactor.ChannelDataInteractor;
 import ru.nitrodenov.messenger.module.channel.interactor.ChannelDataInteractorImpl;
-import ru.nitrodenov.messenger.module.common.interactor.ImageLoaderInteractor;
-import ru.nitrodenov.messenger.module.common.interactor.ImageLoaderInteractorImpl;
 import ru.nitrodenov.messenger.module.channel.presenter.ChannelPresenter;
 import ru.nitrodenov.messenger.module.channel.presenter.ChannelPresenterImpl;
+import ru.nitrodenov.messenger.module.common.interactor.ImageLoaderInteractor;
+import ru.nitrodenov.messenger.module.common.interactor.ImageLoaderInteractorImpl;
 import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractor;
 import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractorImpl;
 
@@ -27,17 +27,21 @@ public class ChannelModule {
     @Nullable
     private final Bundle state;
     @NonNull
+    private final String id;
+    @NonNull
     private final ChannelToolbarData channelToolbarData;
 
-    public ChannelModule(@Nullable Bundle state, @NonNull ChannelToolbarData channelToolbarData) {
+    public ChannelModule(@Nullable Bundle state, @NonNull String id, @NonNull ChannelToolbarData channelToolbarData) {
         this.state = state;
+        this.id = id;
         this.channelToolbarData = channelToolbarData;
     }
 
     @Provides
     @ChannelScope
-    ChannelDataInteractor provideChannelDataInteractor(AsyncHandler asyncHandler) {
-        return new ChannelDataInteractorImpl(asyncHandler);
+    ChannelDataInteractor provideChannelDataInteractor(AsyncHandler asyncHandler,
+                                                       HttpConnection httpConnection) {
+        return new ChannelDataInteractorImpl(asyncHandler, httpConnection);
     }
 
     @Provides
@@ -61,6 +65,6 @@ public class ChannelModule {
     ChannelPresenter provideChannelPresenter(ChannelDataInteractor channelDataInteractor,
                                              ImageLoaderInteractor imageLoaderInteractor,
                                              MultiImageLoaderInteractor multiImageLoaderInteractor) {
-        return new ChannelPresenterImpl(channelDataInteractor, imageLoaderInteractor, multiImageLoaderInteractor, channelToolbarData, state);
+        return new ChannelPresenterImpl(channelDataInteractor, imageLoaderInteractor, multiImageLoaderInteractor, id, channelToolbarData, state);
     }
 }

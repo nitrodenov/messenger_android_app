@@ -3,14 +3,14 @@ package ru.nitrodenov.messenger.module.channel.presenter
 import android.os.Bundle
 import android.widget.ImageView
 import ru.nitrodenov.messenger.module.channel.ChannelDataCallback
-import ru.nitrodenov.messenger.module.common.ImageCallback
-import ru.nitrodenov.messenger.module.common.OnBackPressedListener
 import ru.nitrodenov.messenger.module.channel.entity.ChannelData
 import ru.nitrodenov.messenger.module.channel.entity.ChannelToolbarData
 import ru.nitrodenov.messenger.module.channel.interactor.ChannelDataInteractor
-import ru.nitrodenov.messenger.module.common.interactor.ImageLoaderInteractor
 import ru.nitrodenov.messenger.module.channel.router.ChannelRouter
 import ru.nitrodenov.messenger.module.channel.view.ChannelView
+import ru.nitrodenov.messenger.module.common.ImageCallback
+import ru.nitrodenov.messenger.module.common.OnBackPressedListener
+import ru.nitrodenov.messenger.module.common.interactor.ImageLoaderInteractor
 import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractor
 
 interface ChannelPresenter : ChannelDataCallback, ImageCallback, OnBackPressedListener {
@@ -32,6 +32,7 @@ interface ChannelPresenter : ChannelDataCallback, ImageCallback, OnBackPressedLi
 class ChannelPresenterImpl(private val channelDataInteractor: ChannelDataInteractor,
                            private val imageLoaderInteractor: ImageLoaderInteractor,
                            private val multiImageLoaderInteractor: MultiImageLoaderInteractor,
+                           private val id: String,
                            private val channelToolbarData: ChannelToolbarData,
                            state: Bundle?) : ChannelPresenter {
 
@@ -64,7 +65,7 @@ class ChannelPresenterImpl(private val channelDataInteractor: ChannelDataInterac
     }
 
     override fun loadMoreData(lastItemPosition: Int) {
-        channelDataInteractor.loadChannelData("$lastItemPosition-channelData", this)
+        channelDataInteractor.loadChannelData(id, lastItemPosition, this)
     }
 
     override fun onChannelDataLoaded(channelData: ChannelData) {

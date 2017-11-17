@@ -12,18 +12,14 @@ class ChannelData(val messages: ArrayList<Message>) : TaskResult(), Parcelable {
         parcel.writeTypedList(messages)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<ChannelData> {
-        override fun createFromParcel(parcel: Parcel): ChannelData {
-            return ChannelData(parcel)
-        }
 
-        override fun newArray(size: Int): Array<ChannelData?> {
-            return arrayOfNulls(size)
-        }
+        override fun createFromParcel(parcel: Parcel): ChannelData = ChannelData(parcel)
+
+        override fun newArray(size: Int): Array<ChannelData?> = arrayOfNulls(size)
+
     }
 }
 

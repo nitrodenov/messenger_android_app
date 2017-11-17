@@ -12,10 +12,10 @@ import ru.nitrodenov.messenger.di.scope.ChannelsScope;
 import ru.nitrodenov.messenger.http.HttpConnection;
 import ru.nitrodenov.messenger.module.channels.interactor.ChannelsDataInteractor;
 import ru.nitrodenov.messenger.module.channels.interactor.ChannelsDataInteractorImpl;
-import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractor;
-import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractorImpl;
 import ru.nitrodenov.messenger.module.channels.presenter.ChannelsPresenter;
 import ru.nitrodenov.messenger.module.channels.presenter.ChannelsPresenterImpl;
+import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractor;
+import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractorImpl;
 
 @Module
 public class ChannelsModule {
@@ -29,8 +29,9 @@ public class ChannelsModule {
 
     @Provides
     @ChannelsScope
-    ChannelsDataInteractor provideChannelsDataInteractor(AsyncHandler asyncHandler) {
-        return new ChannelsDataInteractorImpl(asyncHandler);
+    ChannelsDataInteractor provideChannelsDataInteractor(AsyncHandler asyncHandler,
+                                                         HttpConnection httpConnection) {
+        return new ChannelsDataInteractorImpl(asyncHandler, httpConnection);
     }
 
     @Provides

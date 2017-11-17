@@ -5,12 +5,12 @@ import android.view.View
 import ru.nitrodenov.messenger.module.channel.entity.ChannelToolbarData
 import ru.nitrodenov.messenger.module.channels.ChannelsDataCallback
 import ru.nitrodenov.messenger.module.channels.ChannelsItemClickListener
-import ru.nitrodenov.messenger.module.common.ImagesCallback
 import ru.nitrodenov.messenger.module.channels.entity.ChannelsData
 import ru.nitrodenov.messenger.module.channels.interactor.ChannelsDataInteractor
-import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractor
 import ru.nitrodenov.messenger.module.channels.router.ChannelsRouter
 import ru.nitrodenov.messenger.module.channels.view.ChannelsView
+import ru.nitrodenov.messenger.module.common.ImagesCallback
+import ru.nitrodenov.messenger.module.common.interactor.MultiImageLoaderInteractor
 import ru.nitrodenov.messenger.widgets.MultipleImageView
 
 interface ChannelsPresenter : ChannelsDataCallback, ImagesCallback, ChannelsItemClickListener {

@@ -41,8 +41,6 @@ class AsyncHandlerImpl(private val executorService: ExecutorService) : AsyncHand
         tasks.remove(id)
     }
 
-    override fun getTask(id: String): PendingTask? {
-        return tasks[id]
-    }
+    override fun getTask(id: String): PendingTask? = tasks[id]
 
 }

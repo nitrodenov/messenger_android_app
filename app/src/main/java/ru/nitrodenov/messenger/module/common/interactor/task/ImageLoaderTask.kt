@@ -64,9 +64,7 @@ class ImageLoaderTask(val url: String,
         }
     }
 
-    private fun getAttachedImageView(): ImageView? {
-        return weakImageView.get()
-    }
+    private fun getAttachedImageView(): ImageView? = weakImageView.get()
 
     private fun downloadImage(url: String): Bitmap? {
         try {

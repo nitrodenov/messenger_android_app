@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import ru.nitrodenov.messenger.R
-import ru.nitrodenov.messenger.module.common.ImageCallback
 import ru.nitrodenov.messenger.module.channel.entity.Message
 import ru.nitrodenov.messenger.module.channel.presenter.ChannelPresenter
+import ru.nitrodenov.messenger.module.common.ImageCallback
 
 class ChannelAdapter(private val loadDataCallback: ChannelPresenter,
                      private val logoCallback: ImageCallback) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -17,43 +17,40 @@ class ChannelAdapter(private val loadDataCallback: ChannelPresenter,
     private val messages: ArrayList<Message> = ArrayList()
     private var isLoading = false
 
-    override fun getItemCount(): Int {
-        return messages.size + 1 //plus loading cell
-    }
+    override fun getItemCount(): Int = messages.size + 1 //plus loading cell
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            MY_MESSAGE_VIEW_TYPE -> {
-                val view = LayoutInflater.from(parent?.context).inflate(R.layout.my_message_item, parent, false)
-                MyMessageViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder =
+            when (viewType) {
+                MY_MESSAGE_VIEW_TYPE -> {
+                    val view = LayoutInflater.from(parent?.context).inflate(R.layout.my_message_item, parent, false)
+                    MyMessageViewHolder(view)
+                }
+                INCOME_MESSAGE_VIEW_TYPE -> {
+                    val view = LayoutInflater.from(parent?.context).inflate(R.layout.income_message_item, parent, false)
+                    IncomeMessageViewHolder(view)
+                }
+                LOADING_VIEW_TYPE -> {
+                    val view = LayoutInflater.from(parent?.context).inflate(R.layout.loading_item, parent, false)
+                    LoadingViewHolder(view)
+                }
+                else -> {
+                    val view = LayoutInflater.from(parent?.context).inflate(R.layout.my_message_item, parent, false)
+                    MyMessageViewHolder(view)
+                }
             }
-            INCOME_MESSAGE_VIEW_TYPE -> {
-                val view = LayoutInflater.from(parent?.context).inflate(R.layout.income_message_item, parent, false)
-                IncomeMessageViewHolder(view)
-            }
-            LOADING_VIEW_TYPE -> {
-                val view = LayoutInflater.from(parent?.context).inflate(R.layout.loading_item, parent, false)
-                LoadingViewHolder(view)
-            }
-            else -> {
-                val view = LayoutInflater.from(parent?.context).inflate(R.layout.my_message_item, parent, false)
-                MyMessageViewHolder(view)
-            }
-        }
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when (holder?.itemViewType) {
             MY_MESSAGE_VIEW_TYPE -> {
                 val viewHolder = holder as MyMessageViewHolder
-                viewHolder.messageTextTiew.text = position.toString() + messages[position].text
-                viewHolder.timeTextTiew.text = messages[position].time
+                viewHolder.messageTextView.text = messages[position].text
+                viewHolder.timeTextView.text = messages[position].time
                 showImage(viewHolder.messageImageView, messages[position].imageInMessage)
             }
             INCOME_MESSAGE_VIEW_TYPE -> {
                 val viewHolder = holder as IncomeMessageViewHolder
-                viewHolder.messageTextTiew.text = position.toString() + messages[position].text
-                viewHolder.timeTextTiew.text = messages[position].time
+                viewHolder.messageTextView.text = messages[position].text
+                viewHolder.timeTextView.text = messages[position].time
                 showImage(viewHolder.chatImageView, messages[position].logo)
                 showImage(viewHolder.messageImageView, messages[position].imageInMessage)
             }
@@ -64,12 +61,10 @@ class ChannelAdapter(private val loadDataCallback: ChannelPresenter,
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return when {
-            position == messages.size -> LOADING_VIEW_TYPE
-            messages[position].isIncomeMessage -> INCOME_MESSAGE_VIEW_TYPE
-            else -> MY_MESSAGE_VIEW_TYPE
-        }
+    override fun getItemViewType(position: Int): Int = when {
+        position == messages.size -> LOADING_VIEW_TYPE
+        messages[position].isIncomeMessage -> INCOME_MESSAGE_VIEW_TYPE
+        else -> MY_MESSAGE_VIEW_TYPE
     }
 
     fun addMessages(newMessages: List<Message>) {
@@ -100,13 +95,12 @@ class ChannelAdapter(private val loadDataCallback: ChannelPresenter,
         imageView.visibility = View.VISIBLE
     }
 
-    private fun shouldLoadMoreData(position: Int): Boolean {
-        return messages.size - position - 1 in 0..(OFFSET - 1) && !isLoading
-    }
+    private fun shouldLoadMoreData(position: Int): Boolean =
+            messages.size - position - 1 in 0..(OFFSET - 1) && !isLoading
 
     private fun loadMoreData() {
         isLoading = true
-        loadDataCallback.loadMoreData(messages.size - 1)
+        loadDataCallback.loadMoreData(messages.size)
     }
 }
 

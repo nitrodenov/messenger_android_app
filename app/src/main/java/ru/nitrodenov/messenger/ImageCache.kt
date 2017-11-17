@@ -52,9 +52,7 @@ class ImageCacheImpl(private val inMemoryCache: LruCache<String, Bitmap>,
         }
     }
 
-    override fun getBitmapFromMemoryCache(id: String): Bitmap? {
-        return inMemoryCache.get(id)
-    }
+    override fun getBitmapFromMemoryCache(id: String): Bitmap? = inMemoryCache.get(id)
 
     override fun addBitmapToMemoryCache(id: String, bitmap: Bitmap) {
         inMemoryCache.put(id, bitmap)

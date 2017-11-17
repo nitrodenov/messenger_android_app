@@ -24,9 +24,8 @@ class ChannelFragment : Fragment() {
         setUpFragmentComponent(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.channel, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+            inflater.inflate(R.layout.channel, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,13 +61,15 @@ class ChannelFragment : Fragment() {
 
     private fun setUpFragmentComponent(savedInstanceState: Bundle?) {
         val state: Bundle? = savedInstanceState?.getParcelable(KEY_STATE)
+        val id: String = activity.intent.getStringExtra(KEY_ID)
         val channelData: ChannelToolbarData = activity.intent.getParcelableExtra(KEY_CHANNEL_TOOLBAR_DATA)
         MessengerApplication.getInstance()
                 .component
-                .plus(ChannelModule(state, channelData))
+                .plus(ChannelModule(state, id, channelData))
                 .inject(this)
     }
 }
 
 private const val KEY_STATE = "key_state"
+private const val KEY_ID = "key_id"
 private const val KEY_CHANNEL_TOOLBAR_DATA = "key_channel_toolbar_data"

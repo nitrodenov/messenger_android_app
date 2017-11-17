@@ -92,9 +92,7 @@ class MultipleImageView(context: Context, attributes: AttributeSet) : ImageView(
             paint.alpha = alpha
         }
 
-        override fun getOpacity(): Int {
-            return PixelFormat.TRANSLUCENT
-        }
+        override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
 
         override fun setColorFilter(colorFilter: ColorFilter?) {
             paint.colorFilter = colorFilter

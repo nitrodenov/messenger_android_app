@@ -17,17 +17,14 @@ class ChannelToolbarData(val imageUrls: List<String>, val title: String, val des
         parcel.writeString(description)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<ChannelToolbarData> {
-        override fun createFromParcel(parcel: Parcel): ChannelToolbarData {
-            return ChannelToolbarData(parcel)
-        }
 
-        override fun newArray(size: Int): Array<ChannelToolbarData?> {
-            return arrayOfNulls(size)
-        }
+        override fun createFromParcel(parcel: Parcel): ChannelToolbarData =
+                ChannelToolbarData(parcel)
+
+        override fun newArray(size: Int): Array<ChannelToolbarData?> = arrayOfNulls(size)
+
     }
 }

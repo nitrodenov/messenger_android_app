@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import ru.nitrodenov.messenger.R
 import ru.nitrodenov.messenger.module.channel.entity.ChannelToolbarData
 import ru.nitrodenov.messenger.module.channels.ChannelsItemClickListener
-import ru.nitrodenov.messenger.module.common.ImagesCallback
 import ru.nitrodenov.messenger.module.channels.entity.ChannelsData
+import ru.nitrodenov.messenger.module.common.ImagesCallback
 
 class ChannelsAdapter(private val logosCallback: ImagesCallback,
                       private val itemClickListener: ChannelsItemClickListener) :
@@ -41,7 +41,5 @@ class ChannelsAdapter(private val logosCallback: ImagesCallback,
                 channelsData?.channels?.get(position)?.logos ?: ArrayList())
     }
 
-    override fun getItemCount(): Int {
-        return channelsData?.channels?.size ?: 0
-    }
+    override fun getItemCount(): Int = channelsData?.channels?.size ?: 0
 }

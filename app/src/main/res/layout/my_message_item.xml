@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/message_container"
+        android:layout_marginTop="10dp"
         tools:text="21:00" />
 
     <LinearLayout

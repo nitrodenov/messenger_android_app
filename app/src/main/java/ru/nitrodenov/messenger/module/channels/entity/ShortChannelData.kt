@@ -19,9 +19,7 @@ class ShortChannelData(val id: String,
         }
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<ShortChannelData> {
         override fun createFromParcel(parcel: Parcel): ShortChannelData {
@@ -36,8 +34,6 @@ class ShortChannelData(val id: String,
             }
         }
 
-        override fun newArray(size: Int): Array<ShortChannelData?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<ShortChannelData?> = arrayOfNulls(size)
     }
 }
