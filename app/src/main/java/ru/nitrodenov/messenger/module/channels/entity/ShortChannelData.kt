@@ -24,12 +24,17 @@ class ShortChannelData(val id: String,
     companion object CREATOR : Parcelable.Creator<ShortChannelData> {
         override fun createFromParcel(parcel: Parcel): ShortChannelData {
             with(parcel) {
+                val id = readString()
+                val title = readString()
+                val description = readString()
+                val time = readString()
                 val logos = ArrayList<String>()
                 readStringList(logos)
-                return ShortChannelData(id = readString(),
-                        title = readString(),
-                        description = readString(),
-                        time = readString(),
+
+                return ShortChannelData(id = id,
+                        title = title,
+                        description = description,
+                        time = time,
                         logos = logos)
             }
         }

@@ -19,6 +19,8 @@ interface ChannelDataInteractor {
 
     fun loadChannelData(id: String, lastItemPosition: Int, callback: ChannelDataCallback)
 
+    fun stopTasks()
+
 }
 
 class ChannelDataInteractorImpl(private val asyncHandler: AsyncHandler,
@@ -27,6 +29,10 @@ class ChannelDataInteractorImpl(private val asyncHandler: AsyncHandler,
     override fun loadChannelData(id: String, lastItemPosition: Int, callback: ChannelDataCallback) {
         val channelsDataTask = ChannelDataTask(callback, httpConnection, id, lastItemPosition)
         asyncHandler.submit(id, channelsDataTask)
+    }
+
+    override fun stopTasks() {
+        asyncHandler.stopAllTasks()
     }
 
 }
@@ -52,7 +58,7 @@ class ChannelDataTask(callback: ChannelDataCallback?,
 
     private fun loadMessages(id: String, lastItemPosition: Int): ArrayList<Message>? {
         try {
-            val connection = httpConnection.getHttpConnection("http://10.10.10.71:8080/messages?id=$id&index=$lastItemPosition")
+            val connection = httpConnection.getHttpConnection("http://10.10.10.18:8080/messages?id=$id&index=$lastItemPosition")
             val responseCode = connection.responseCode
             if (responseCode == HttpURLConnection.HTTP_OK && !isCancelled) {
                 val data = connection.inputStream.bufferedReader().use(BufferedReader::readText)

@@ -48,6 +48,7 @@ class ChannelPresenterImpl(private val channelDataInteractor: ChannelDataInterac
 
     override fun detachView() {
         this.view = null
+        channelDataInteractor.stopTasks()
     }
 
     override fun attachRouter(router: ChannelRouter) {

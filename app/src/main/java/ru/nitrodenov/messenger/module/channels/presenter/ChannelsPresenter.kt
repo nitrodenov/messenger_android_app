@@ -43,7 +43,7 @@ class ChannelsPresenterImpl(private val channelsDataInteractor: ChannelsDataInte
 
     override fun detachView() {
         this.view = null
-        stopTask()
+        channelsDataInteractor.stopTasks()
     }
 
     override fun attachRouter(router: ChannelsRouter) {
@@ -90,10 +90,6 @@ class ChannelsPresenterImpl(private val channelsDataInteractor: ChannelsDataInte
         if (data != null) {
             view?.showChannelsData(data)
         }
-    }
-
-    private fun stopTask() {
-        channelsDataInteractor.stopTask("channels_data")
     }
 }
 

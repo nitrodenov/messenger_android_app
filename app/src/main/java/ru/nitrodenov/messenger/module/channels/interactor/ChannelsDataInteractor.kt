@@ -20,7 +20,7 @@ interface ChannelsDataInteractor {
 
     fun loadChannelsData(id: String, callback: ChannelsDataCallback)
 
-    fun stopTask(id: String)
+    fun stopTasks()
 
 }
 
@@ -32,8 +32,8 @@ class ChannelsDataInteractorImpl(private val asyncHandler: AsyncHandler,
         asyncHandler.submit(id, channelsDataTask)
     }
 
-    override fun stopTask(id: String) {
-        asyncHandler.stopTask(id)
+    override fun stopTasks() {
+        asyncHandler.stopAllTasks()
     }
 
 }
@@ -57,7 +57,7 @@ class ChannelsDataTask(callback: ChannelsDataCallback?,
 
     private fun loadShortChannelData(): List<ShortChannelData>? {
         try {
-            val connection = httpConnection.getHttpConnection("http://10.10.10.71:8080/channels")
+            val connection = httpConnection.getHttpConnection("http://10.10.10.18:8080/channels")
             val responseCode = connection.responseCode
             if (responseCode == HttpURLConnection.HTTP_OK && !isCancelled) {
                 val data = connection.inputStream.bufferedReader().use(BufferedReader::readText)

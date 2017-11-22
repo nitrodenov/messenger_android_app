@@ -27,6 +27,7 @@ class ChannelsViewImpl(view: View,
     private val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
     private val adapter: ChannelsAdapter = ChannelsAdapter(logosCallback, itemClickListener)
     private val progress = view.findViewById<View>(R.id.progress)
+    private val container = view.findViewById<View>(R.id.container)
 
     init {
         recyclerView.adapter = adapter
@@ -40,10 +41,12 @@ class ChannelsViewImpl(view: View,
         adapter.channelsData = channelsData
         adapter.notifyDataSetChanged()
         progress.visibility = View.GONE
+        container.visibility = View.VISIBLE
     }
 
     override fun showScreenProgress() {
         progress.visibility = View.VISIBLE
+        container.visibility = View.GONE
     }
 
     override fun showScreenError() {

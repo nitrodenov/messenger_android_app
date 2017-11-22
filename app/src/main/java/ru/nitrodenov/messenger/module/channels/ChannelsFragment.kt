@@ -29,7 +29,11 @@ class ChannelsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val channelsView = ChannelsViewImpl(view, presenter, presenter)
+        val channelsView = ChannelsViewImpl(
+                view = view,
+                logosCallback = presenter,
+                itemClickListener = presenter
+        )
         presenter.attachView(channelsView)
     }
 

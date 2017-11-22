@@ -6,11 +6,11 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import ru.nitrodenov.messenger.R
-import ru.nitrodenov.messenger.module.common.ImageCallback
-import ru.nitrodenov.messenger.module.common.OnBackPressedListener
 import ru.nitrodenov.messenger.module.channel.entity.ChannelData
 import ru.nitrodenov.messenger.module.channel.presenter.ChannelPresenter
 import ru.nitrodenov.messenger.module.channel.view.adapter.ChannelAdapter
+import ru.nitrodenov.messenger.module.common.ImageCallback
+import ru.nitrodenov.messenger.module.common.OnBackPressedListener
 import ru.nitrodenov.messenger.widgets.MultipleImageView
 
 interface ChannelView {
@@ -37,6 +37,7 @@ class ChannelViewImpl(view: View,
     private val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
     private val adapter: ChannelAdapter = ChannelAdapter(loadDataCallback, logoCallback)
     private val progress = view.findViewById<View>(R.id.progress)
+    private val container = view.findViewById<View>(R.id.container)
 
     private val titleTextView: TextView
     private val descriptionTextView: TextView
@@ -61,10 +62,12 @@ class ChannelViewImpl(view: View,
         val messages = channelData.messages
         adapter.addMessages(messages)
         progress.visibility = View.GONE
+        container.visibility = View.VISIBLE
     }
 
     override fun showScreenProgress() {
         progress.visibility = View.VISIBLE
+        container.visibility = View.GONE
     }
 
     override fun showScreenError() {
